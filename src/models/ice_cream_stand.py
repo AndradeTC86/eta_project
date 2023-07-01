@@ -14,30 +14,40 @@ class IceCreamStand(Restaurant):
 
     def flavors_available(self):
         """Percorra a lista de sabores disponíveis e imprima."""
+        # Corrigido para retornar os valores ao invés de imprimir
         if self.flavors:
-            print("\nNo momento temos os seguintes sabores de sorvete disponíveis:")
+            msg = "\nNo momento temos os seguintes sabores de sorvete disponíveis:"
             for flavor in self.flavors:
-                print(f"\t-{flavor}")
+                msg = (f"{msg}\n\t-{flavor}")
+            return msg
         else:
-            print("Estamos sem estoque atualmente!")
+            return "Estamos sem estoque atualmente!"
+
 
     def find_flavor(self, flavor):
         """Verifica se o sabor informado está disponível."""
-        if self.flavors:
-            if flavor in self.flavors:
-                print(f"Temos no momento {self.flavors}!")
+        # Corrigido para retornar os valores ao invés de imprimir
+        # Adicionado validação para verificar se o nome foi passado
+        if flavor is not None:
+            if self.flavors:
+                if flavor in self.flavors:
+                    return f"Temos no momento {flavor}!"
+                else:
+                    return f"Não temos no momento {flavor}!"
             else:
-                print(f"Não temos no momento {self.flavors}!")
-        else:
-            print("Estamos sem estoque atualmente!")
+                return "Estamos sem estoque atualmente!"
+        return "Sabor não foi informado"
 
     def add_flavor(self, flavor):
         """Add o sabor informado ao estoque."""
-        if self.flavors:
-            if flavor in self.flavors:
-                print("\nSabor já disponivel!")
-            else:
-                self.flavors.append(flavor)
-                print(f"{flavor} adicionado ao estoque!")
-        else:
-            print("Estamos sem estoque atualmente!")
+        # Corrigido para retornar os valores ao invés de imprimir
+        # Adicionado validação para verificar se o nome está em branco
+        # Removida a mensagem de falta de estoque
+        if flavor is not None:
+            if self.flavors:
+                if flavor in self.flavors:
+                    return "\nSabor já disponivel!"
+                else:
+                    self.flavors.append(flavor)
+                    return f"{flavor} adicionado ao estoque!"
+        return "Sabor não foi informado"

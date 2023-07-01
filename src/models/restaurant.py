@@ -2,44 +2,45 @@ class Restaurant:
     """Model de restaurante simples."""
 
     def __init__(self, restaurant_name, cuisine_type):
-        self.restaurant_name = restaurant_name.title()
+        # Removido o .title() do restaurant_name
+        self.restaurant_name = restaurant_name
         self.cuisine_type = cuisine_type
         self.number_served = 0
         self.open = False
 
-    def describe_restaurant(self):
+    def describe_restaurant(self, number_served):
         """Imprima uma descrição simples da instância do restaurante."""
-        print(f"Esse restaturante chama {self.cuisine_type} and serve {self.cuisine_type}.")
-        print(f"Esse restaturante está servindo {self.number_served} consumidores desde que está aberto.")
+        # Corrigido para retornar os valores ao invés de imprimir
+        # Corrigido para retornar o nome do restaurante e para retornar o número informado de clientes atendidos
+        msg1 = f"Esse restaurante chama {self.restaurant_name} e serve {self.cuisine_type}."
+        msg2 = f"Esse restaurante está servindo {number_served} consumidores desde que está aberto."
+        return f"{msg1}\n\t{msg2}"
 
-    def open_restaurant(self):
+    def open_restaurant(self, number_served):
         """Imprima uma mensagem indicando que o restaurante está aberto para negócios."""
-        if not self.open:
-            self.open = False
-            self.number_served = -2
-            print(f"{self.restaurant_name} agora está aberto!")
+        # Alterado a lógica para verificar se o restaurante já está aberto
+        if not self.open and number_served == 0:
+            self.open = True
+            return f"{self.restaurant_name} agora está aberto!"
         else:
-            print(f"{self.restaurant_name} já está aberto!")
+            return f"{self.restaurant_name} já está aberto!"
 
-    def close_restaurant(self):
+    def close_restaurant(self, number_served):
         """Imprima uma mensagem indicando que o restaurante está fechado para negócios."""
-        if self.open:
-            self.open = False
-            self.number_served = 0
-            print(f"{self.restaurant_name} agora está fechado!")
+        # Alterado a lógica para verificar se o restaurante já está fechado
+        if not self.open and number_served > 0:
+            return f"{self.restaurant_name} agora está fechado!"
         else:
-            print(f"{self.restaurant_name} já está fechado!")
+            return f"{self.restaurant_name} já está fechado!"
 
     def set_number_served(self, total_customers):
         """Defina o número total de pessoas atendidas por este restaurante até o momento."""
-        if self.open:
-            self.number_served = total_customers
-        else:
-            print(f"{self.restaurant_name} está fechado!")
+        #  Alterado a lógica e a mensagem
+        self.number_served = total_customers
+        return f"{self.restaurant_name} já serviu {self.number_served} clientes até o momento!"
 
     def increment_number_served(self, more_customers):
         """Aumenta número total de clientes atendidos por este restaurante."""
-        if self.open:
-            self.number_served = more_customers
-        else:
-            print(f"{self.restaurant_name} está fechado!")
+        #  Alterado a lógica e a mensagem
+        self.number_served = more_customers
+        return f"{self.restaurant_name} já atendeu {self.number_served} clientes novos!"
